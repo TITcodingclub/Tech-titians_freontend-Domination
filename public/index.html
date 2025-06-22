@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness & Wellness Dashboard</title>
+    <link rel="stylesheet" href="./index.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="header-title"> Fitness & Wellness Dashboard</h1>
+                <div class="header-controls">
+                    <!-- Theme Toggle -->
+                    <div class="theme-toggle">
+                        <i class="fas fa-sun sun-icon"></i>
+                        <button class="toggle-switch" id="themeToggle">
+                            <span class="toggle-slider"></span>
+                        </button>
+                        <i class="fas fa-moon moon-icon"></i>
+                    </div>
+
+                    <!-- Color Variants -->
+                    <div class="color-variants">
+                        <button class="color-btn active" data-color="blue" style="background: #3b82f6;"></button>
+                        <button class="color-btn" data-color="violet" style="background: #8b5cf6;"></button>
+                        <button class="color-btn" data-color="emerald" style="background: #10b981;"></button>
+                        <button class="color-btn" data-color="rose" style="background: #f43f5e;"></button>
+                    </div>
+
+                    <img data-bs-toggle="modal" data-bs-target="#profile-model-box" src="./image/profilepic.jpg"
+                        alt="User avatar" class="user-avatar">
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Modal-For-Profile -->
+    <div class="modal fade left-modal" id="profile-model-box" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-slideout">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Profile</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="model-body-name">
+                        <div class="me-3">
+                            <h6>Profile Name :</h6>
+                        </div>
+                        <div>
+                            Tech Titian
+                        </div>
+                    </div>
+                    <div class="model-body-name">
+                        <div class="me-3">
+                            <h6>Company Name :</h6>
+                        </div>
+                        <div>
+                            Frontend-Domination
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Main Dashboard -->
+    <main class="main">
+        <div class="container">
+            <div class="dashboard-grid">
+
+                <!-- Goals Widget -->
+                <div class="widget goals-widget">
+                    <div class="widget-header">
+                        <h2>My Goals</h2>
+                        <button data-bs-target="#addGoalModal" data-bs-toggle="modal" class="add-btn" title="Add Goal">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="widget-content">
+                        <div id="goalList" class="goals-list">
+                            <!-- Goals will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mood Widget -->
+                <div class="widget mood-widget">
+                    <div class="widget-header">
+                        <h2>Daily Mood</h2>
+                    </div>
+                    <div class="widget-content">
+                        <div class="mood-display">
+                            <div class="current-mood" id="currentMood">😊</div>
+                            <p>How are you feeling today?</p>
+                        </div>
+                        <div class="mood-selector">
+                            <button class="mood-btn" data-mood="amazing">🤩</button>
+                            <button class="mood-btn active" data-mood="happy">😊</button>
+                            <button class="mood-btn" data-mood="neutral">😐</button>
+                            <button class="mood-btn" data-mood="sad">😔</button>
+                            <button class="mood-btn" data-mood="stressed">😰</button>
+                        </div>
+                        <div class="streak-info">
+                            <span id="streakCount">7</span> day streak! 🔥
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Widget -->
+                <div class="widget tasks-widget">
+                    <div class="widget-header">
+                        <h2>Today's Tasks</h2>
+                        <span class="task-counter" id="taskCounter">3/7</span>
+                    </div>
+                    <div class="widget-content">
+                        <div id="tasksList" class="tasks-list">
+                            <!-- Tasks will be populated here -->
+                        </div>
+                        <button data-bs-target="#addTaskModal" data-bs-toggle="modal" class="add-task-btn">
+                            <i class="fas fa-plus"></i>
+                            Add task
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Coach Widget -->
+                <div class="widget coach-widget">
+                    <div class="widget-content">
+                        <div class="coach-profile">
+                            <img src="./image/it-team.jpeg" alt="Coach Alex" class="coach-avatar">
+                            <h3 class="coatch-name">Tech Titians</h3>
+                            <p class="coach-title">Fitness & Wellness Coach</p>
+                            <div class="rating">
+                                <span class="stars">★★★★★</span>
+                                <span class="rating-text">(5.0)</span>
+                            </div>
+                            <p class="coach-bio">Helping people achieve their fitness goals for over 8 years.
+                                Specialized in strength training and nutrition.</p>
+                            <button class="message-coach-btn">
+                                <i class="fas fa-comment"></i>
+                                Message Coach
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Widget -->
+                <div class="widget stats-widget">
+                    <div class="widget-header">
+                        <h2>Weekly Progress</h2>
+                    </div>
+                    <div class="widget-content">
+                        <div class="week-progress">
+                            <div class="day completed">
+                                <span class="day-label">Mon</span>
+                                <div class="day-status">✓</div>
+                            </div>
+                            <div class="day completed">
+                                <span class="day-label">Tue</span>
+                                <div class="day-status">✓</div>
+                            </div>
+                            <div class="day completed">
+                                <span class="day-label">Wed</span>
+                                <div class="day-status">✓</div>
+                            </div>
+                            <div class="day">
+                                <span class="day-label">Thu</span>
+                                <div class="day-status">-</div>
+                            </div>
+                            <div class="day current">
+                                <span class="day-label">Fri</span>
+                                <div class="day-status">!</div>
+                            </div>
+                            <div class="day">
+                                <span class="day-label">Sat</span>
+                                <div class="day-status">-</div>
+                            </div>
+                            <div class="day">
+                                <span class="day-label">Sun</span>
+                                <div class="day-status">-</div>
+                            </div>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">7</div>
+                                <div class="stat-label">Day Streak</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-value">245</div>
+                                <div class="stat-label">Points</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions Widget -->
+                <div class="widget actions-widget">
+                    <div class="widget-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+                    <div class="widget-content">
+                        <div class="actions-list">
+                            <button class="action-btn" data-action="reading">
+                                <div class="action-icon reading">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="action-details">
+                                    <div class="action-title">Log Reading</div>
+                                    <div class="action-desc">Track your progress</div>
+                                </div>
+                            </button>
+                            <button class="action-btn" data-action="workout">
+                                <div class="action-icon workout">
+                                    <i class="fas fa-dumbbell"></i>
+                                </div>
+                                <div class="action-details">
+                                    <div class="action-title">Log Workout</div>
+                                    <div class="action-desc">Record exercise</div>
+                                </div>
+                            </button>
+                            <button class="action-btn" data-action="spanish">
+                                <div class="action-icon spanish">
+                                    <i class="fas fa-language"></i>
+                                </div>
+                                <div class="action-details">
+                                    <div class="action-title">Practice Spanish</div>
+                                    <div class="action-desc">Study session</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements Widget -->
+                <div class="widget achievements-widget">
+                    <div class="widget-header">
+                        <h2>Recent Achievements</h2>
+                    </div>
+                    <div class="widget-content">
+                        <div class="achievements-list">
+                            <div class="achievement gold">
+                                <div class="achievement-icon">🏆</div>
+                                <div class="achievement-details">
+                                    <div class="achievement-title">First Week Complete!</div>
+                                    <div class="achievement-desc">7 days in a row</div>
+                                </div>
+                            </div>
+                            <div class="achievement green">
+                                <div class="achievement-icon">📚</div>
+                                <div class="achievement-details">
+                                    <div class="achievement-title">Bookworm</div>
+                                    <div class="achievement-desc">Read 10 books</div>
+                                </div>
+                            </div>
+                            <div class="achievement blue">
+                                <div class="achievement-icon">💪</div>
+                                <div class="achievement-details">
+                                    <div class="achievement-title">Fitness Fanatic</div>
+                                    <div class="achievement-desc">50 workouts logged</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Goal Modal -->
+    <div class="modal fade" id="addGoalModal" tabindex="-1" aria-labelledby="addGoalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content model-fullscreen">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addGoalModalLabel">Add New Goal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="goalForm">
+                        <div class="mb-3">
+                            <label for="goalTitle" class="form-label">Goal Title</label>
+                            <input type="text" placeholder="Enter Goal Title" class="form-control" id="goalTitle"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="goalTarget" class="form-label">Target Value</label>
+                            <input type="number" placeholder="Enter Target Value" class="form-control" id="goalTarget"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="goalColor" class="form-label">Color</label>
+                            <select class="form-select" id="goalColor" required>
+                                <option value="blue">Blue</option>
+                                <option value="emerald">Emerald</option>
+                                <option value="violet">Violet</option>
+                                <option value="red">Red</option>
+                                <option value="orange">Orange</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; align-items: end; justify-content: end;"> <button type="submit"
+                                class="btn btn-primary">Add
+                                Goal</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="taskForm">
+                        <div class="mb-3">
+                            <label for="taskTitle" class="form-label">Task Title</label>
+                            <input type="text" placeholder="Enter Task Title" class="form-control" id="taskTitle"
+                                required>
+                        </div>
+                        <div style="display: flex; align-items: end; justify-content: end;"><button type="submit"
+                                class="btn btn-primary">Add Task</button></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
